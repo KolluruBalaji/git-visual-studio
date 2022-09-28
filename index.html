@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function () {
+            var ulpro = $("#uluser");
+            $('#btnGetUser').click(function () {
+                console.log('button clicked')
+                $.ajax({
+                    type: "GET",
+                    url: "api/User",
+                    dataType: "json",
+                    success: function (data1) {
+                        console.log('request success');
+                        ulpro.empty();
+                        $.each(data1, function (index, pro) {
+                            console.log("index" + index);
+                            ulpro.append('<li>' + pro.UserID + ' - ' + pro.UserName + ' - ' + pro.Email + ' - ' + pro.city+ ' - ' + pro.Phone + ' - ' + pro.RegistrationDate + '</li>');
+
+                        });
+                    }
+                });
+            });
+            $("#btnClear").click(function () {
+                ulpro.empty();
+            })
+        });
+
+    </script>
+</head>
+<body>
+
+    <button type="submit" id="btnGetUser">Get All User</button>
+    <button type="submit" id="btnClear">Clear</button>
+    <ul id="uluser"></ul>
+
+</body>
+</html>
